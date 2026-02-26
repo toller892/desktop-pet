@@ -1,8 +1,8 @@
-/* === Cartoon Cat Styles === */
+/* === Luo Xiaohei Style Cat === */
 .cat {
   position: relative;
-  width: 120px;
-  height: 120px;
+  width: 140px;
+  height: 130px;
   margin: 0 auto;
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
@@ -10,12 +10,18 @@
 }
 
 .cat:hover {
-  transform: scale(1.08);
+  transform: scale(1.06);
 }
 
 .cat__svg {
   display: block;
   overflow: visible;
+}
+
+/* Hide lick paw by default */
+.cat__lick-paw {
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 
 /* ===== Meow Bubble ===== */
@@ -48,6 +54,34 @@
   border-top: 7px solid #333;
 }
 
+/* ===== Hearts (purr) ===== */
+.cat__hearts {
+  position: absolute;
+  top: -12px;
+  right: 0px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.cat__hearts span {
+  color: #FF6B8A;
+  font-size: 12px;
+  display: inline-block;
+}
+
+.cat__hearts span:nth-child(1) {
+  animation: heart-float 1.5s ease-out infinite;
+}
+
+.cat__hearts span:nth-child(2) {
+  animation: heart-float 1.5s ease-out infinite 0.3s;
+  font-size: 16px;
+}
+
+.cat__hearts span:nth-child(3) {
+  animation: heart-float 1.5s ease-out infinite 0.6s;
+}
+
 /* ===== Zzz ===== */
 .cat__zzz {
   position: absolute;
@@ -74,111 +108,263 @@
   animation: zzz-float 2s ease-in-out infinite 0.8s;
 }
 
-/* ===== Idle State ===== */
+/* ========================================
+   STATE: idle
+   ======================================== */
 .cat--idle .cat__tail {
   animation: tail-wag 2.5s ease-in-out infinite;
-  transform-origin: 92px 88px;
+  transform-origin: 105px 92px;
 }
 
 .cat--idle .cat__eye {
   animation: eye-blink 4s ease-in-out infinite;
 }
 
-/* ===== Meow State ===== */
+/* ========================================
+   STATE: meow
+   ======================================== */
 .cat--meow .cat__head {
   animation: head-lift 0.4s ease-in-out;
 }
 
 .cat--meow .cat__tail {
-  animation: tail-wag 1.5s ease-in-out infinite;
-  transform-origin: 92px 88px;
+  animation: tail-wag 1.2s ease-in-out infinite;
+  transform-origin: 105px 92px;
 }
 
-/* ===== Sleep State ===== */
+/* ========================================
+   STATE: sleep
+   ======================================== */
 .cat--sleep .cat__body {
   animation: breathe 3s ease-in-out infinite;
-  transform-origin: 60px 88px;
+  transform-origin: 68px 94px;
 }
 
 .cat--sleep .cat__tail {
   animation: none;
   transform: rotate(5deg);
-  transform-origin: 92px 88px;
+  transform-origin: 105px 92px;
 }
 
 .cat--sleep .cat__head {
   animation: breathe-head 3s ease-in-out infinite;
-  transform-origin: 60px 46px;
+  transform-origin: 68px 50px;
 }
 
-/* ===== Keyframes ===== */
+/* ========================================
+   STATE: stretch (伸懒腰)
+   ======================================== */
+.cat--stretch .cat__body {
+  animation: stretch-body 2.5s ease-in-out;
+  transform-origin: 68px 94px;
+}
+
+.cat--stretch .cat__head {
+  animation: stretch-head 2.5s ease-in-out;
+  transform-origin: 68px 50px;
+}
+
+.cat--stretch .cat__tail {
+  animation: tail-up 2.5s ease-in-out;
+  transform-origin: 105px 92px;
+}
+
+.cat--stretch .cat__paws {
+  animation: stretch-paws 2.5s ease-in-out;
+}
+
+/* ========================================
+   STATE: lick (舔爪子)
+   ======================================== */
+.cat--lick .cat__lick-paw {
+  opacity: 1;
+  animation: lick-paw-move 2s ease-in-out;
+}
+
+.cat--lick .cat__head {
+  animation: lick-head 2s ease-in-out;
+  transform-origin: 68px 50px;
+}
+
+.cat--lick .cat__tail {
+  animation: tail-wag 3s ease-in-out infinite;
+  transform-origin: 105px 92px;
+}
+
+/* ========================================
+   STATE: purr (呼噜/撒娇)
+   ======================================== */
+.cat--purr .cat__body {
+  animation: purr-vibrate 0.15s ease-in-out infinite alternate;
+  transform-origin: 68px 94px;
+}
+
+.cat--purr .cat__tail {
+  animation: tail-wag 1.8s ease-in-out infinite;
+  transform-origin: 105px 92px;
+}
+
+.cat--purr .cat__head {
+  animation: purr-head 2s ease-in-out infinite;
+  transform-origin: 68px 50px;
+}
+
+/* ========================================
+   STATE: roll (打滚)
+   ======================================== */
+.cat--roll .cat__svg {
+  animation: roll-spin 2.5s ease-in-out;
+  transform-origin: 68px 94px;
+}
+
+.cat--roll .cat__tail {
+  animation: tail-wag 0.8s ease-in-out infinite;
+  transform-origin: 105px 92px;
+}
+
+/* ========================================
+   STATE: pounce (扑击)
+   ======================================== */
+.cat--pounce .cat__body {
+  animation: pounce-body 2s ease-in-out;
+  transform-origin: 68px 94px;
+}
+
+.cat--pounce .cat__head {
+  animation: pounce-head 2s ease-in-out;
+  transform-origin: 68px 50px;
+}
+
+.cat--pounce .cat__tail {
+  animation: pounce-tail 2s ease-in-out;
+  transform-origin: 105px 92px;
+}
+
+/* ========================================
+   KEYFRAMES
+   ======================================== */
+
+/* --- Basic --- */
 @keyframes tail-wag {
-  0%, 100% {
-    transform: rotate(-8deg);
-  }
-  50% {
-    transform: rotate(8deg);
-  }
+  0%, 100% { transform: rotate(-8deg); }
+  50% { transform: rotate(8deg); }
 }
 
 @keyframes eye-blink {
-  0%, 42%, 46%, 100% {
-    opacity: 1;
-  }
-  44% {
-    opacity: 0;
-  }
+  0%, 42%, 46%, 100% { opacity: 1; }
+  44% { opacity: 0; }
 }
 
 @keyframes meow-pop {
-  0% {
-    transform: translateX(-50%) scale(0);
-    opacity: 0;
-  }
-  60% {
-    transform: translateX(-50%) scale(1.1);
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(-50%) scale(1);
-    opacity: 1;
-  }
+  0% { transform: translateX(-50%) scale(0); opacity: 0; }
+  60% { transform: translateX(-50%) scale(1.1); opacity: 1; }
+  100% { transform: translateX(-50%) scale(1); opacity: 1; }
 }
 
 @keyframes zzz-float {
-  0%, 100% {
-    opacity: 0.2;
-    transform: translateY(0);
-  }
-  50% {
-    opacity: 1;
-    transform: translateY(-10px);
-  }
+  0%, 100% { opacity: 0.2; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-10px); }
 }
 
 @keyframes breathe {
-  0%, 100% {
-    transform: scaleY(1);
-  }
-  50% {
-    transform: scaleY(1.04);
-  }
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(1.04); }
 }
 
 @keyframes breathe-head {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-1px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1px); }
 }
 
 @keyframes head-lift {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-4px);
-  }
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-4px); }
+}
+
+/* --- Hearts (purr) --- */
+@keyframes heart-float {
+  0% { opacity: 0; transform: translateY(0) scale(0.5); }
+  30% { opacity: 1; transform: translateY(-8px) scale(1); }
+  100% { opacity: 0; transform: translateY(-25px) scale(0.6); }
+}
+
+/* --- Stretch (伸懒腰) --- */
+@keyframes stretch-body {
+  0%, 100% { transform: scaleX(1) scaleY(1); }
+  20% { transform: scaleX(1.15) scaleY(0.85); }
+  50% { transform: scaleX(0.9) scaleY(1.12); }
+  70% { transform: scaleX(1.05) scaleY(0.95); }
+}
+
+@keyframes stretch-head {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  20% { transform: translateY(3px) rotate(-3deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+  70% { transform: translateY(-3px) rotate(0deg); }
+}
+
+@keyframes tail-up {
+  0%, 100% { transform: rotate(-5deg); }
+  30%, 70% { transform: rotate(-25deg); }
+}
+
+@keyframes stretch-paws {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-4px); }
+}
+
+/* --- Lick (舔爪子) --- */
+@keyframes lick-paw-move {
+  0% { opacity: 0; transform: translateY(10px); }
+  20% { opacity: 1; transform: translateY(0); }
+  80% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(10px); }
+}
+
+@keyframes lick-head {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  20%, 80% { transform: translateX(-6px) rotate(-8deg); }
+  50% { transform: translateX(-6px) rotate(-5deg); }
+}
+
+/* --- Purr (呼噜) --- */
+@keyframes purr-vibrate {
+  0% { transform: translateX(-0.5px); }
+  100% { transform: translateX(0.5px); }
+}
+
+@keyframes purr-head {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(2px) rotate(3deg); }
+}
+
+/* --- Roll (打滚) --- */
+@keyframes roll-spin {
+  0% { transform: rotate(0deg) translateX(0); }
+  25% { transform: rotate(90deg) translateX(10px); }
+  50% { transform: rotate(180deg) translateX(0); }
+  75% { transform: rotate(270deg) translateX(-10px); }
+  100% { transform: rotate(360deg) translateX(0); }
+}
+
+/* --- Pounce (扑击) --- */
+@keyframes pounce-body {
+  0%, 100% { transform: scaleY(1) translateY(0); }
+  30% { transform: scaleY(0.8) translateY(4px); }
+  50% { transform: scaleY(1.1) translateY(-12px); }
+  70% { transform: scaleY(0.95) translateY(-2px); }
+}
+
+@keyframes pounce-head {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(3px); }
+  50% { transform: translateY(-14px); }
+  70% { transform: translateY(-2px); }
+}
+
+@keyframes pounce-tail {
+  0%, 100% { transform: rotate(0deg); }
+  30% { transform: rotate(15deg); }
+  50% { transform: rotate(-20deg); }
+  70% { transform: rotate(5deg); }
 }
