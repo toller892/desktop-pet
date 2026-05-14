@@ -4,9 +4,9 @@ import { sendChatRequest, type ChatMessage, type ChatConfig } from "../utils/api
 const MAX_HISTORY = 10;
 
 const DEFAULT_CONFIG: ChatConfig = {
-  apiEndpoint: "https://api.openai.com",
+  apiEndpoint: "https://api.anthropic.com",
   apiKey: "",
-  model: "gpt-4o-mini",
+  model: "claude-3-haiku-20240307",
 };
 
 export function useChat() {
